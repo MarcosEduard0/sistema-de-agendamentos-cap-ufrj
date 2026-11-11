@@ -86,7 +86,7 @@
 					<div class="col-sm-8">
 						Adaptado de <a href="https://www.classroombookings.com/" target="_blank" rel="noopener noreferrer">classroombookings</a> por
 						<span class="login-contact" data-toggle="tooltip" data-placement="top" title="marcos.eduardo22@gmail.com">Marcos Eduardo de Souza</span>.
-						<br />Versão <?= VERSION ?> &copy; <?= date('Y') ?>
+						<br />Versão <?= VERSION ?> &copy; <?= COPYRIGHT_YEAR ?>
 					</div>
 					<div class="col-sm-2"></div>
 				</div>

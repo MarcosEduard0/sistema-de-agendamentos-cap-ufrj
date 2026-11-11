@@ -303,7 +303,7 @@ class MultiAgent extends BaseAgent
 		// The scenarios below shouldn't really happen:
 
 		if (!$date_info || !$date_info->session_id) {
-			throw new AgentException('A data selecionada não pertence a uma sessão.');
+			throw new AgentException('A data selecionada não pertence a um ano letivo.');
 		}
 
 		if (!$date_info->week_id) {

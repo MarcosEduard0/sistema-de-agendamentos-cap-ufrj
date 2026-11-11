@@ -55,6 +55,9 @@ class Grid
 	{
 		$controls = $this->controls->render();
 		$header = $this->header->render();
+        if ($this->context->session && !$this->CI->userauth->can_book_session($this->context->session)) {
+            $header .= '<p class="booking-readonly-note" role="status">Somente consulta: novos agendamentos estão desabilitados neste ano letivo.</p>';
+        }
 
 		$body = $this->render_body();
 		$footer = $this->render_footer();
@@ -106,6 +109,10 @@ class Grid
 		if ($this->context->exception) {
 			return '';
 		}
+
+        if (!$this->CI->userauth->can_book_session($this->context->session)) {
+            return '';
+        }
 
 		$input = form_checkbox([
 			'name' => 'multi_select',

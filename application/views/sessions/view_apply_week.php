@@ -8,7 +8,7 @@ echo form_open('sessions/apply_week', $attrs, ['session_id' => $session->session
 	<legend>Aplicação em massa</legend>
 
 	<div style="padding: 12px 0 12px 0;">
-		Aplique a Semana selecionada a todas as semanas desta sessão.
+		Aplique a Semana selecionada a todas as semanas deste ano letivo.
 	</div>
 
 	<p>

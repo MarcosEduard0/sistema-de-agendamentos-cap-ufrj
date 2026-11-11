@@ -73,7 +73,7 @@ echo sprintf("<p>%s%s</p>%s", $label, $input, form_error($field));
 $field = 'recurring_start';
 $value = set_value($field, 'date', FALSE);
 $label = form_label('Começando de...', 'recurring_start');
-$options = ['session' => 'Início da sessão', 'date' => 'Data(s) selecionada(s)'];
+$options = ['session' => 'Início do ano letivo', 'date' => 'Data(s) selecionada(s)'];
 $input = form_dropdown([
 	'name' => 'recurring_start',
 	'options' => $options,
@@ -87,7 +87,7 @@ echo sprintf("<p>%s%s</p>%s", $label, $input, form_error($field));
 $field = 'recurring_end';
 $label = form_label('Até...', 'recurring_end');
 $value = set_value($field, 'session', FALSE);
-$options = ['session' => 'Fim da sessão', 'date' => 'Data(s) selecionada(s)'];
+$options = ['session' => 'Fim do ano letivo', 'date' => 'Data(s) selecionada(s)'];
 $input = form_dropdown([
 	'name' => 'recurring_end',
 	'options' => $options,

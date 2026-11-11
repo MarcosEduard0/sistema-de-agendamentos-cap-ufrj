@@ -24,22 +24,14 @@ class Profile extends MY_Controller
 		$user_id = $this->userauth->user->user_id;
 
 		$this->data['user'] = $this->users_model->Get($user_id);
-		$this->data['department'] = $this->departments_model->Get($this->data['user']->department_id)->name;
+		$department = $this->departments_model->Get($this->data['user']->department_id);
+		$this->data['department'] = $department ? $department->name : '';
+		$this->data['styles'][] = 'assets/css/profile.css';
 
-		$columns = array(
-			'c1' => array(
-				'width' => '70%',
-				'content' => $this->load->view('profile/profile_edit', $this->data, TRUE),
-			),
-			'c2' => array(
-				'width' => '30%',
-				'content' => $this->load->view('profile/profile_edit_side', $this->data, TRUE),
-			),
-		);
 
 		$this->data['title'] = 'Editar perfil';
-		$this->data['showtitle'] = $this->data['title'];
-		$this->data['body'] = $this->load->view('columns', $columns, TRUE);
+		$this->data['showtitle'] = '';
+		$this->data['body'] = $this->load->view('profile/profile_edit', $this->data, TRUE);
 
 		return $this->render();
 	}

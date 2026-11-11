@@ -197,6 +197,12 @@ class Userauth
 	 * @param string $start_from Date used as the anchor to check $on_date against for booking in advance. Default to today.
 	 *
 	 */
+    public function can_book_session($session)
+    {
+        return $this->is_level(ADMINISTRATOR)
+            || ($session && (int) $session->is_selectable === 1);
+    }
+
 	public function can_create_booking($on_date = '', $start_from = NULL)
 	{
 		$start_from = ($start_from === NULL)

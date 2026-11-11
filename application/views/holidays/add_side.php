@@ -1,7 +1,7 @@
 <div class="bd-callout bd-callout-info">
 	<h6>Feriados escolares</h6>
 	<dd>As datas devem ser a primeira e a última datas do <strong>feriado</strong> em si, não incluem os dias de aula.</dd>
-	<h6>Sessão</h6>
+	<h6>Ano letivo</h6>
 	<dd>O feriado deve ser em <?= html_escape($session->name) ?>: entre
 		<span><?= $session->date_start->format('d/m/Y') ?></span> e
 		<span><?= $session->date_end->format('d/m/Y') ?>.</span>

@@ -275,6 +275,15 @@ class Bookings_model extends CI_Model
 	 */
 	public function validate_booking($data)
 	{
+        // Resolve permission from the requested date, never from a posted year ID.
+        if (!$this->userauth->is_level(ADMINISTRATOR)) {
+            $this->load->model('sessions_model');
+            $session = $this->sessions_model->get_by_date($data['date']);
+            if (!$this->userauth->can_book_session($session)) {
+                throw new BookingValidationException('Este ano letivo permite apenas consulta. Novos agendamentos estão desabilitados.');
+            }
+        }
+
 		$sql = 'SELECT booking_id
 				FROM bookings
 				WHERE `date` = ?

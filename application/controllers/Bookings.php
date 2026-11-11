@@ -383,11 +383,7 @@ class Bookings extends MY_Controller
 		} else {
 
 			$this->load->model('sessions_model');
-			if ($this->userauth->is_level(ADMINISTRATOR)) {
-				$session = $this->sessions_model->get($session_id);
-			} else {
-				$session = $this->sessions_model->get_available_session($session_id);
-			}
+			$session = $this->sessions_model->get($session_id);
 
 			if ($session) {
 				$_SESSION['current_session_id'] = $session->session_id;

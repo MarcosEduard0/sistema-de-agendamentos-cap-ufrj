@@ -1963,3 +1963,37 @@ body:has(#bookings_grid) { background: #f4f7fa; }
   #bookings_grid { padding: 14px 10px; border-radius: 9px; }
   .booking-grid-actions { align-items: flex-start; }
 }
+
+
+/* Account dropdown shared across authenticated pages. */
+.account-menu .dropdown-menu {
+  min-width: 180px;
+  padding: 7px;
+  margin-top: 10px;
+  border: 1px solid #dce3e8;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(16, 36, 56, .15);
+}
+.account-menu .dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  color: #34443b;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.account-menu .dropdown-item i { width: 18px; text-align: center; color: #62736a; }
+.account-menu .dropdown-item:hover,
+.account-menu .dropdown-item:focus { background: #edf5ef; color: #164b2c; text-decoration: none; }
+.account-menu .dropdown-item:focus-visible { outline: 2px solid #176039; outline-offset: -2px; }
+.account-menu .dropdown-divider { margin: 5px 4px; border-top-color: #e8edf0; }
+.account-menu .account-menu-logout:hover,
+.account-menu .account-menu-logout:focus { background: #fbefed; color: #9d3630; }
+.account-menu .account-menu-logout:hover i,
+.account-menu .account-menu-logout:focus i { color: #9d3630; }
+
+.booking-readonly-note { padding: 10px 12px; margin: 0 0 16px; border: 1px solid #dce5df; border-radius: 7px; background: #f4f7f6; color: #445b4d; font-size: 13px; }

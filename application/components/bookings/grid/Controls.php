@@ -97,46 +97,13 @@ class Controls
 
 	private function render_session_view()
 	{
-		$show_all = ($this->context->user && $this->context->user->authlevel == ADMINISTRATOR)
-			? TRUE
-			: FALSE;
-
-
-		if ($show_all) {
-
-			$session_options = [];
-
-			if ($this->context->active_sessions) {
-				foreach ($this->context->active_sessions as $session) {
-					$session_options['Atual e Futuro'][$session->session_id] = $session->name;
-				}
-			}
-
-			if ($this->context->past_sessions) {
-				foreach ($this->context->past_sessions as $session) {
-					$session_options['Anterior'][$session->session_id] = $session->name;
-				}
-			}
-		} else {
-
-			// No available sessions: skip.
-			if (!is_array($this->context->available_sessions)) {
-				return '';
-			}
-
-			// Only 1 session *and* is current: skip.
-			$num_sessions = count($this->context->available_sessions);
-			$selected_is_current = ($this->context->session && $this->context->session->is_current == '1');
-
-			if ($selected_is_current && $num_sessions == 1) {
-				return '';
-			}
-
-			$session_options = ['' => ''];
-			foreach ($this->context->available_sessions as $session) {
-				$session_options[$session->session_id] = $session->name;
-			}
-		}
+        // All authenticated users can browse years; booking permission is separate.
+        $session_options = [];
+        foreach (['Atual e Futuro' => $this->context->active_sessions, 'Anteriores' => $this->context->past_sessions] as $group => $sessions) {
+            foreach (($sessions ?: []) as $session) {
+                $session_options[$group][$session->session_id] = $session->name;
+            }
+        }
 
 		$query_params = $this->context->get_query_params();
 

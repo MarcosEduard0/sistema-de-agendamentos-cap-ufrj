@@ -1,0 +1,118 @@
+/* Shared administrative pages; preserve status colors and original action icons. */
+body.admin-page { background: #f4f7fa; }
+.admin-page .content_area {
+  display: flow-root;
+  margin-top: 22px;
+  padding: 28px;
+  background: #fff;
+  border: 1px solid #dce3e8;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(16, 36, 56, .07);
+  color: #24323d;
+  overflow-x: auto;
+}
+.admin-page .content_area > h2:first-child {
+  margin: 0 0 24px;
+  padding-left: 12px;
+  border-left: 4px solid #176039;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #24323d;
+}
+.admin-page .content_area h3 { color: #34443b; font-size: 19px; font-weight: 600; }
+.admin-page .content_area fieldset {
+  min-width: 0;
+  border: 1px solid #e1e7eb;
+  border-radius: 9px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.admin-page .content_area legend {
+  width: auto;
+  max-width: 100%;
+  padding: 0 8px;
+  color: #34443b;
+  font-size: 17px;
+  font-weight: 600;
+}
+.admin-page .content_area .form-control {
+  min-height: 38px;
+  padding: 7px 11px;
+  border: 1px solid #cbd3da;
+  border-radius: 7px;
+  color: #34443b;
+  font-size: 14px;
+  background-color: #fff;
+}
+.admin-page .content_area input.form-control { min-width: 76px; max-width: 100%; }
+.admin-page .content_area textarea.form-control { min-height: 100px; resize: vertical; }
+.admin-page .content_area .form-control:disabled,
+.admin-page .content_area .form-control[readonly] { background: #f0f3f5; color: #65746c; }
+.admin-page .content_area .form-control:focus {
+  border-color: #176039;
+  box-shadow: 0 0 0 3px rgba(23, 96, 57, .14);
+  outline: none;
+}
+.admin-page .content_area .form-control.is-invalid { border-color: #b53636; }
+.admin-page .content_area .form-control.is-valid { border-color: #176039; }
+.admin-page .content_area input[type=checkbox],
+.admin-page .content_area input[type=radio] { accent-color: #176039; }
+.admin-page .content_area .btn-primary {
+  background: #164b2c;
+  border-color: #164b2c;
+  border-radius: 7px;
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.admin-page .content_area .btn-primary:hover { background: #103b22; border-color: #103b22; }
+.admin-page .content_area .btn-primary:focus-visible {
+  outline: 3px solid #176039;
+  outline-offset: 3px;
+}
+.admin-page .content_area p.iconbar { display: flex; flex-wrap: wrap; gap: 10px 18px; margin: 0 0 20px; }
+.admin-page .content_area p.iconbar a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #176039;
+  padding: 7px 10px;
+  border: 1px solid #dce5df;
+  border-radius: 7px;
+  background: #f6faf7;
+  text-decoration: none;
+  font-size: 14px;
+}
+.admin-page .content_area p.iconbar a:hover { background: #eaf3ed; border-color: #88aa96; }
+.admin-page .content_area .zebra-table { border-collapse: separate; border-spacing: 0; margin-bottom: 20px; }
+.admin-page .content_area .zebra-table thead td {
+  background: #edf3ef;
+  color: #34443b;
+  border-bottom: 1px solid #d7e2db;
+  padding: 11px 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.admin-page .content_area .zebra-table thead td:first-child { border-top-left-radius: 7px; }
+.admin-page .content_area .zebra-table thead td:last-child { border-top-right-radius: 7px; }
+.admin-page .content_area .zebra-table tbody td { padding: 10px; border-bottom: 1px solid #e8edf0; font-size: 14px; }
+.admin-page .content_area .zebra-table tbody tr:nth-child(even) > td:not([class*="week"]) { background-color: #f7f9fa; }
+.admin-page .content_area .column .c { padding: 0 12px; }
+.admin-page .content_area .column:first-child .c { padding-left: 0; }
+.admin-page .content_area .column:last-child .c { padding-right: 0; }
+.admin-page .content_area .bd-callout { border-radius: 8px; background: #f8faf9; }
+.admin-page .content_area .cssform div.submit { border-top-color: #e1e7eb; padding-top: 16px; }
+@media (max-width: 767px) {
+  .admin-page .content_area { padding: 20px 14px; margin-top: 16px; }
+  .admin-page .content_area > h2:first-child { font-size: 23px; }
+  .admin-page .content_area .column { float: none !important; width: 100% !important; }
+  .admin-page .content_area .column .c { padding: 0; }
+  .admin-page .content_area fieldset { padding: 16px 12px; }
+}
+@media (max-width: 575px) {
+  .admin-page .content_area .cssform p,
+  .admin-page .content_area .cssform .input-group { padding-left: 0; }
+  .admin-page .content_area .cssform label { float: none; margin-left: 0; width: auto; display: block; }
+  .admin-page .content_area .cssform div.submit { padding-left: 0; }
+}

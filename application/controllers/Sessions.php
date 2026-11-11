@@ -19,14 +19,14 @@ class Sessions extends MY_Controller
 		$this->load->model('dates_model');
 		$this->load->helper('date');
 
-		$this->data['showtitle'] = 'Sessões';
+		$this->data['showtitle'] = 'Anos letivos';
 	}
 
 
 	private function get_icons($session = NULL)
 	{
 		$items = [
-			['sessions', 'Sessões', 'calendar_view_month.png'],
+			['sessions', 'Anos letivos', 'calendar_view_month.png'],
 		];
 
 		if ($session) {
@@ -47,7 +47,7 @@ class Sessions extends MY_Controller
 		$this->data['active'] = $this->sessions_model->get_all_active();
 		$this->data['past'] = $this->sessions_model->get_all_past();
 
-		$this->data['title'] = 'Sessões';
+		$this->data['title'] = 'Anos letivos';
 
 		$body = $this->load->view('sessions/index', $this->data, TRUE);
 
@@ -87,7 +87,7 @@ class Sessions extends MY_Controller
 		$this->data['weeks'] = $weeks;
 		$this->data['calendar'] = $calendar;
 		$this->data['session'] = $session;
-		$this->data['title'] = $this->data['showtitle'] = 'Sessão: ' . $session->name;
+		$this->data['title'] = $this->data['showtitle'] = 'Ano letivo: ' . $session->name;
 
 		$icons = iconbar($this->get_icons($session), 'sessions/view/' . $session->session_id);
 
@@ -113,9 +113,9 @@ class Sessions extends MY_Controller
 
 		$updated = $this->dates_model->set_weeks($session_id, $dates);
 		if ($updated) {
-			$flashmsg = msgbox('info', "As semanas da sessão foram atualizadas.");
+			$flashmsg = msgbox('info', "As semanas do ano letivo foram atualizadas.");
 		} else {
-			$flashmsg = msgbox('error', "Ocorreu um erro ao atualizar as semanas da sessão.");
+			$flashmsg = msgbox('error', "Ocorreu um erro ao atualizar as semanas do ano letivo.");
 		}
 
 		// echo "done";
@@ -143,7 +143,7 @@ class Sessions extends MY_Controller
 
 		$this->dates_model->apply_week($session_id, $week_id);
 
-		$flashmsg = msgbox('info', sprintf("%s foi aplicado a todas as semanas na sessão.", html_escape($week->name)));
+		$flashmsg = msgbox('info', sprintf("%s foi aplicado a todas as semanas no ano letivo.", html_escape($week->name)));
 		$this->session->set_flashdata('saved', $flashmsg);
 
 		redirect("sessions/view/{$session_id}");
@@ -156,7 +156,7 @@ class Sessions extends MY_Controller
 	 */
 	public function add()
 	{
-		$this->data['title'] = 'Adicionar Sessão';
+		$this->data['title'] = 'Adicionar ano letivo';
 
 		if ($this->input->post()) {
 			$this->save_session();
@@ -181,7 +181,7 @@ class Sessions extends MY_Controller
 
 	public function edit($session_id)
 	{
-		$this->data['title'] = $this->data['showtitle'] = 'Editar Sessão';
+		$this->data['title'] = $this->data['showtitle'] = 'Editar ano letivo';
 
 		$this->data['session'] = $this->find_session($session_id);
 
@@ -281,9 +281,9 @@ class Sessions extends MY_Controller
 		$this->data['action'] = current_url();
 		$this->data['id'] = $id;
 		$this->data['cancel'] = 'sessions';
-		$this->data['text'] = 'Se você excluir esta sessão, <strong>todas os agendamentos</strong> e feriados durante esta sessão também serão <strong>excluídos permanentemente</strong>.';
+		$this->data['text'] = 'Se você excluir este ano letivo, <strong>todos os agendamentos</strong> e feriados durante este ano letivo também serão <strong>excluídos permanentemente</strong>.';
 
-		$this->data['title'] = sprintf('Deletar Sessão (%s)', html_escape($session->name));
+		$this->data['title'] = sprintf('Excluir ano letivo (%s)', html_escape($session->name));
 
 		$title = "<h2>{$this->data['title']}</h2>";
 		$body = $this->load->view('partials/deleteconfirm', $this->data, TRUE);
@@ -308,7 +308,7 @@ class Sessions extends MY_Controller
 			$dt = datetime_from_string($value);
 			$dtFormat = $dt->format('d/m/Y');
 			$sessionName = $session->name;
-			$msg = sprintf("O {field} (%s) já faz parte de uma sessão existente (%s).", $dtFormat, $sessionName);
+			$msg = sprintf("O {field} (%s) já faz parte de um ano letivo existente (%s).", $dtFormat, $sessionName);
 			$this->form_validation->set_message('_date_check', $msg);
 			return FALSE;
 		}

@@ -11,7 +11,7 @@ $hidden = [
 
 echo form_open($form_action, $attrs, $hidden);
 
-echo "<label for='session_id'>Sessão: </label>";
+echo "<label for='session_id'>Ano letivo: </label>";
 
 echo form_dropdown([
 	'name' => 'session_id',

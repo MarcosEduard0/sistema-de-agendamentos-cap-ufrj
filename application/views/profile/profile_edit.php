@@ -1,230 +1,67 @@
-<?php
-
-echo form_open('profile/save', array('class' => 'needs-validation', 'id' => 'profile_edit', 'novalidate' => 'true'));
-
-?>
-
-
-<fieldset>
-
-	<legend accesskey="U" tabindex="<?php tab_index() ?>">Informação do usuário</legend>
-
-	<div class="form-group row">
-		<label for="email" class="col-sm-3 col-form-label">E-mail</label>
-		<div class="col-sm-5">
-			<?php
-			$email = form_error('email');
-			$password = form_error('password1');
-			if (isset($email) and !$password == '') {
-				$valid = 'is-valid';
-			} else {
-				$valid = '';
-			}
-			$field = 'email';
-			$email = set_value($field, $user->email, FALSE);
-			echo form_input(array(
-				'name' => $field,
-				'id' => $field,
-				'size' => '35',
-				'maxlength' => '255',
-				'class' => 'form-control ' . $valid,
-				'tabindex' => tab_index(),
-				'value' => $email,
-			));
-			?>
-		</div>
-	</div>
-
-
-	<div class="form-group row">
-		<label class="col-sm-3 col-form-label" for="password1">Senha</label>
-		<div class="col-sm-4">
-			<?php
-			$field = 'password1';
-			if (form_error($field)) {
-				$valid = 'is-invalid';
-			} else {
-				$valid = '';
-			}
-			echo form_password(array(
-				'name' => $field,
-				'id' => $field,
-				'size' => '20',
-				'maxlength' => '40',
-				'class' => 'form-control ' . $valid,
-				'tabindex' => tab_index(),
-				'value' => '',
-			));
-			if (form_error($field)) {
-				echo form_error($field);
-			} else {
-				echo '<div class="invalid-feedback">Por favor, digite um usuário.</div>';
-			}
-
-			if ($valid == 'is-invalid') {
-				$valid = 'is-valid';
-			} else {
-				$valid = '';
-			}
-			?>
-		</div>
-	</div>
-
-
-	<div class="form-group row">
-		<label class="col-sm-3 col-form-label" for="password2">Senha (novamente)</label>
-		<div class="col-sm-4">
-			<?php
-			$field = 'password2';
-			if (form_error($field)) {
-				$valid = 'is-invalid';
-			} else {
-				$valid = '';
-			}
-			echo form_password(array(
-				'name' => $field,
-				'id' => $field,
-				'size' => '20',
-				'maxlength' => '40',
-				'class' => 'form-control ' . $valid,
-				'tabindex' => tab_index(),
-				'value' => '',
-			));
-			if ($valid == 'is-invalid') {
-				$valid = 'is-valid';
-			} else {
-				$valid = '';
-			}
-			?>
-		</div>
-	</div>
-	<!-- <?php echo form_error($field); ?> -->
-
-
-</fieldset>
-
-
-<fieldset>
-
-
-	<div class="form-group row">
-		<label class="col-sm-3 col-form-label" for="firstname">Nome</label>
-		<div class="col-sm-4">
-			<?php
-			$field = 'firstname';
-			$firstname = set_value($field, $user->firstname, FALSE);
-			echo form_input(array(
-				'name' => $field,
-				'id' => $field,
-				'size' => '20',
-				'maxlength' => '20',
-				'class' => 'form-control ' . $valid,
-				'tabindex' => tab_index(),
-				'value' => $firstname,
-			));
-			?>
-		</div>
-	</div>
-	<?php echo form_error($field); ?>
-
-
-	<div class="form-group row">
-		<label class="col-sm-3 col-form-label" for="lastname">Sobrenome</label>
-		<div class="col-sm-4">
-			<?php
-			$field = 'lastname';
-			$lastname = set_value($field, $user->lastname, FALSE);
-			echo form_input(array(
-				'name' => $field,
-				'id' => $field,
-				'size' => '20',
-				'maxlength' => '20',
-				'class' => 'form-control ' . $valid,
-				'tabindex' => tab_index(),
-				'value' => $lastname,
-			));
-			?>
-		</div>
-	</div>
-	<?php echo form_error($field); ?>
-
-
-	<div class="form-group row">
-		<label class="col-sm-3 col-form-label" for="displayname">Nome de exibição</label>
-		<div class="col-sm-4">
-			<?php
-			$field = 'displayname';
-			$displayname = set_value($field, $user->displayname, FALSE);
-			echo form_input(array(
-				'name' => $field,
-				'id' => $field,
-				'size' => '20',
-				'maxlength' => '20',
-				'class' => 'form-control ' . $valid,
-				'tabindex' => tab_index(),
-				'value' => $displayname,
-			));
-			?>
-		</div>
-	</div>
-	<?php echo form_error($field); ?>
-
-	<div class="form-group row">
-		<label class="col-sm-3 col-form-label" for="department">Departamento</label>
-		<div class="col-sm-4">
-			<?php
-			if (isset($department)) {
-				$options = html_escape($department);
-			} else {
-				$options = '(nenhum)';
-			}
-			$field = 'department_id';
-			echo form_input(array(
-				'name' => $field,
-				'id' => $field,
-				'size' => '20',
-				'maxlength' => '20',
-				'class' => 'form-control ' . $valid,
-				'tabindex' => tab_index(),
-				'value' => $options,
-				'disabled' => ''
-			));
-			?>
-		</div>
-	</div>
-	<?php echo form_error($field); ?>
-
-
-	<div class="form-group row">
-		<label class="col-sm-3 col-form-label" for="ext">Telefone</label>
-		<div class="col-sm-4">
-			<?php
-			$field = 'ext';
-			$ext = set_value($field, $user->ext, FALSE);
-			echo form_input(array(
-				'name' => $field,
-				'id' => $field,
-				'size' => '13',
-				'maxlength' => '20',
-				'class' => 'form-control ' . $valid,
-				'onkeypress' => "$(this).mask('(00) 0000-00000')",
-				'tabindex' => tab_index(),
-				'value' => $ext,
-			));
-			?>
-		</div>
-	</div>
-	<?php echo form_error($field); ?>
-
-
-</fieldset>
-
-
-<?php
-$this->load->view('partials/submit', array(
-	'submit' => array('Salvar', tab_index()),
-	'cancel' => array('Cancelar', tab_index(), '/'),
-));
-
-echo form_close();
-?>
+<?php echo $this->session->flashdata('saved'); ?>
+<section class="profile-card" aria-labelledby="profile-title">
+    <h1 id="profile-title">Editar perfil</h1>
+    <p class="profile-intro">Atualize seus dados pessoais e, se desejar, sua senha.</p>
+    <?= form_open('profile/save', ['id' => 'profile_edit']) ?>
+    <fieldset>
+        <legend>Dados pessoais</legend>
+        <div class="profile-fields">
+        <?php
+        $fields = [
+            'firstname' => ['label' => 'Nome', 'max' => 20, 'autocomplete' => 'given-name'],
+            'lastname' => ['label' => 'Sobrenome', 'max' => 20, 'autocomplete' => 'family-name'],
+            'displayname' => ['label' => 'Nome de exibição', 'max' => 20, 'autocomplete' => 'nickname'],
+            'email' => ['label' => 'E-mail', 'max' => 255, 'autocomplete' => 'email'],
+            'department_id' => ['label' => 'Departamento', 'max' => 20, 'autocomplete' => 'off'],
+            'ext' => ['label' => 'Telefone', 'max' => 20, 'autocomplete' => 'tel'],
+        ];
+        foreach ($fields as $field => $options):
+            $error = form_error($field);
+            $attrs = [
+                'name' => $field, 'id' => $field,
+                'type' => $field === 'email' ? 'email' : ($field === 'ext' ? 'tel' : 'text'),
+                'maxlength' => $options['max'], 'autocomplete' => $options['autocomplete'],
+                'class' => 'form-control' . ($error ? ' is-invalid' : ''),
+                'value' => $field === 'department_id' ? ($department ?: '(Nenhum)') : set_value($field, $user->$field, FALSE),
+            ];
+            if ($field === 'department_id') { $attrs['disabled'] = 'disabled'; $attrs['aria-describedby'] = 'department-hint'; }
+            if ($field === 'ext') { $attrs['onkeypress'] = "$(this).mask('(00) 0000-00000')"; }
+            if ($error) { $attrs['aria-invalid'] = 'true'; $attrs['aria-describedby'] = $field . '-error'; }
+        ?>
+            <div class="profile-field">
+                <?= form_label($options['label'], $field) ?>
+                <?= form_input($attrs) ?>
+                <?php if ($field === 'department_id'): ?><small id="department-hint">Para alterar o departamento, entre em contato com a administração.</small><?php endif; ?>
+                <?php if ($error): ?><div id="<?= $field ?>-error" class="profile-error"><?= $error ?></div><?php endif; ?>
+            </div>
+        <?php endforeach; ?>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Alterar senha</legend>
+        <p class="profile-password-hint" id="password-hint">Deixe os dois campos em branco para manter a senha atual. A nova senha deve ter pelo menos 6 caracteres.</p>
+        <div class="profile-fields">
+        <?php foreach (['password1' => 'Nova senha', 'password2' => 'Confirmar nova senha'] as $field => $label): ?>
+            <div class="profile-field">
+                <?= form_label($label, $field) ?>
+                <?php
+                $error = form_error($field);
+                echo form_password([
+                    'name' => $field, 'id' => $field, 'value' => '', 'maxlength' => 40,
+                    'autocomplete' => 'new-password',
+                    'class' => 'form-control' . ($error ? ' is-invalid' : ''),
+                    'aria-describedby' => 'password-hint' . ($error ? ' ' . $field . '-error' : ''),
+                    'aria-invalid' => $error ? 'true' : 'false',
+                ]);
+                ?>
+                <?php if ($error): ?><div id="<?= $field ?>-error" class="profile-error"><?= $error ?></div><?php endif; ?>
+            </div>
+        <?php endforeach; ?>
+        </div>
+    </fieldset>
+    <div class="profile-actions">
+        <button type="submit" class="btn btn-primary">Salvar alterações</button>
+        <a href="<?= site_url('/') ?>">Cancelar</a>
+    </div>
+    <?= form_close() ?>
+</section>

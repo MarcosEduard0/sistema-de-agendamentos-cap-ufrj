@@ -18,7 +18,7 @@
 
 		<tbody>
 			<tr>
-				<td colspan="6" align="center" style="padding:16px 0; color: #666">Sem sessões.</td>
+				<td colspan="6" align="center" style="padding:16px 0; color: #666">Sem anos letivos.</td>
 			</tr>
 		</tbody>
 
@@ -40,7 +40,7 @@
 				// Recorrente
 				$img = '';
 				if ($session->is_current == 1) {
-					$img = img(['src' => 'assets/images/ui/enabled.png', 'width' => '16', 'height' => '16', 'alt' => 'Sessão atual']);
+					$img = img(['src' => 'assets/images/ui/enabled.png', 'width' => '16', 'height' => '16', 'alt' => 'Ano letivo atual']);
 				}
 				echo "<td>{$img}</td>";
 

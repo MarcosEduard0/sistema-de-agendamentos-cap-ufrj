@@ -78,7 +78,7 @@ class Menu_model extends CI_Model
 		];
 
 		$items[] = [
-			'label' => 'Sessões',
+			'label' => 'Anos letivos',
 			'icon' => 'school_manage_times.png',
 			'url' => site_url('sessions'),
 			'img' => 'holiday.png',

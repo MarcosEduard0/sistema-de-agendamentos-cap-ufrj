@@ -12,7 +12,7 @@ echo form_open(current_url(), ['class' => 'needs-validation', 'id' => 'session_a
 
 <fieldset>
 
-	<legend accesskey="S" tabindex="<?= tab_index() ?>">Sessão</legend>
+	<legend accesskey="S" tabindex="<?= tab_index() ?>">Ano letivo</legend>
 
 	<div class="form-group row">
 		<label for="name" class="col-sm-2 col-form-label">Nome</label>
@@ -100,7 +100,7 @@ echo form_open(current_url(), ['class' => 'needs-validation', 'id' => 'session_a
 			));
 			?>
 		</div>
-		<div class="hit">Marque esta caixa para permitir agendamentos para este sessão</div>
+		<div class="hit">Marque esta caixa para permitir agendamentos para este ano letivo</div>
 	</div>
 
 	<?php echo form_error($field); ?>

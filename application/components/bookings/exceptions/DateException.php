@@ -21,6 +21,6 @@ class DateException extends \RuntimeException
 			$dt = 'Nenhuma';
 		}
 
-		return new static(sprintf("A data selecionada (%s), não está dentro da Sessão atual.", $dt));
+		return new static(sprintf("A data selecionada (%s), não está dentro do ano letivo atual.", $dt));
 	}
 }

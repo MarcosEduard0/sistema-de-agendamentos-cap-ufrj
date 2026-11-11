@@ -160,6 +160,12 @@ class Slot
 			return;
 		}
 
+        if (!$this->CI->userauth->can_book_session($this->context->session)) {
+            $this->status = self::STATUS_UNAVAILABLE;
+            $this->reason = self::UNAVAILABLE_UNKNOWN;
+            return;
+        }
+
 		// Check permissions/quotas
 		$start_date = ($this->context->session->is_current == '1')
 			? date('Y-m-d')

@@ -1,5 +1,12 @@
 <?php
 $global_menu = $this->menu_model->global();
+// Shared appearance for the administrative pages and their edit forms.
+$admin_sections = ['school', 'periods', 'weeks', 'sessions', 'rooms', 'departments', 'users'];
+$admin_page = in_array($this->uri->segment(1), $admin_sections, TRUE)
+    || ($this->uri->segment(1) === 'settings' && $this->uri->segment(2) === 'general');
+if ($admin_page) {
+    $styles[] = 'assets/css/admin-pages.css';
+}
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +30,7 @@ $global_menu = $this->menu_model->global();
 
 </head>
 
-<body>
+<body<?= $admin_page ? ' class="admin-page"' : '' ?>>
 	<?php
 	if ($this->userauth->logged_in()) : {
 			$menu[0]['class'] = 'fa fa-book';
@@ -83,12 +90,13 @@ $global_menu = $this->menu_model->global();
 								? $this->userauth->user->displayname
 								: $this->userauth->user->username;
 						?>
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<i class="<?php echo $menu[3]['class'] ?>"></i>&nbsp<?= $label ?>&nbsp</a>
-								<div class="dropdown-menu">
+							<li class="nav-item dropdown account-menu">
+								<a id="account-menu-toggle" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="<?php echo $menu[3]['class'] ?>"></i>&nbsp<?= html_escape($label) ?>&nbsp</a>
+								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="account-menu-toggle">
 									<a class="dropdown-item" href="<?php echo $menu[2]['href'] ?>"><i class="fa fa-pencil fa-fw"></i> <?php echo $menu[2]['title'] ?></a>
-									<a class="dropdown-item" href="<?php echo $menu[3]['href'] ?>"><i class="fa fa-sign-out"></i> <?php echo $menu[3]['title'] ?></a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item account-menu-logout" href="<?php echo $menu[3]['href'] ?>"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> <?php echo $menu[3]['title'] ?></a>
 								</div>
 							</li>
 						<?php endif; ?>
@@ -135,7 +143,7 @@ $global_menu = $this->menu_model->global();
 					<small class="form-text text-muted" style="text-align: center">
 						Adptado de <a href="https://www.classroombookings.com/" target="_blank">classroombookings</a> por
 						<t data-toggle="tooltip" title="marcos.eduardo22@gmail.com">Marcos Eduardo de Souza</t>.
-						<br />Versão <?= VERSION ?>&copy; <?= date('Y') ?>
+						<br />Versão <?= VERSION ?> &copy; <?= COPYRIGHT_YEAR ?>
 					</small>
 					<br /><br />
 				</div>

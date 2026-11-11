@@ -84,7 +84,7 @@ $default = ($default_values['recurring_start'] == 'date')
 	: $default_values['recurring_start'];
 $value = set_value($field, $default, FALSE);
 $label = form_label('Começando de...', 'recurring_start');
-$options = ['session' => '(Início da sessão)', 'Data específica...' => $recurring_date_options];
+$options = ['session' => '(Início do ano letivo)', 'Data específica...' => $recurring_date_options];
 $input = form_dropdown([
 	'name' => $field,
 	'options' => $options,
@@ -101,7 +101,7 @@ $default = ($default_values['recurring_end'] == 'date')
 	: $default_values['recurring_end'];
 $label = form_label('Até...', 'recurring_end');
 $value = set_value($field, 'session', FALSE);
-$options = ['session' => '(Fim da sessão)', 'Data específica...' => $recurring_date_options];
+$options = ['session' => '(Fim do ano letivo)', 'Data específica...' => $recurring_date_options];
 $input = form_dropdown([
 	'name' => $field,
 	'options' => $options,

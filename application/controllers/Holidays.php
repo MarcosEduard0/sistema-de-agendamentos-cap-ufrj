@@ -24,7 +24,7 @@ class Holidays extends MY_Controller
 	private function get_icons($session = NULL)
 	{
 		$items = [
-			['sessions', 'Sessões', 'calendar_view_month.png'],
+			['sessions', 'Anos letivos', 'calendar_view_month.png'],
 		];
 
 		if ($session) {
@@ -44,7 +44,7 @@ class Holidays extends MY_Controller
 
 		$this->data['session'] = $session;
 		$this->data['holidays'] = $this->holidays_model->get_by_session($session->session_id);
-		$this->data['title'] = $this->data['showtitle'] = 'Sessão: ' . $session->name . ': Feriado';
+		$this->data['title'] = $this->data['showtitle'] = 'Ano letivo: ' . $session->name . ': Feriado';
 
 		$icons = iconbar($this->get_icons($session), 'holidays/session/' . $session->session_id);
 
@@ -68,7 +68,7 @@ class Holidays extends MY_Controller
 		$session = $this->find_session($session_id);
 
 		$this->data['session'] = $session;
-		$this->data['title'] = $this->data['showtitle'] = 'Sessão: ' . $session->name . ': Adicionar Feriado';
+		$this->data['title'] = $this->data['showtitle'] = 'Ano letivo: ' . $session->name . ': Adicionar Feriado';
 
 		if ($this->input->post()) {
 			$this->save_holiday();
@@ -102,7 +102,7 @@ class Holidays extends MY_Controller
 		$session = $this->sessions_model->get($this->data['holiday']->session_id);
 
 		$this->data['session'] = $session;
-		$this->data['title'] = $this->data['showtitle'] = 'Sessão: ' . $session->name . ': Editar Feriado';
+		$this->data['title'] = $this->data['showtitle'] = 'Ano letivo: ' . $session->name . ': Editar Feriado';
 
 		if ($this->input->post()) {
 			$this->save_holiday($this->data['holiday']->holiday_id);
@@ -186,7 +186,7 @@ class Holidays extends MY_Controller
 		$session = $this->sessions_model->get($holiday->session_id);
 
 		$this->data['session'] = $session;
-		$this->data['title'] = $this->data['showtitle'] = 'Sessão: ' . $session->name . ': Deletar Feriado';
+		$this->data['title'] = $this->data['showtitle'] = 'Ano letivo: ' . $session->name . ': Deletar Feriado';
 
 		if ($this->input->post('id')) {
 			$this->holidays_model->delete($this->input->post('id'));
@@ -223,7 +223,7 @@ class Holidays extends MY_Controller
 		$session = $this->sessions_model->get($session_id);
 
 		if (!$session) {
-			$this->form_validation->set_message($rule, 'A sessão não pôde ser carregada.');
+			$this->form_validation->set_message($rule, 'O ano letivo não pôde ser carregado.');
 			return FALSE;
 		}
 

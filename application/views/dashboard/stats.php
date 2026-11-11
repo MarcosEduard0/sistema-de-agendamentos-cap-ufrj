@@ -10,7 +10,7 @@ $blocks[] = [
 ];
 
 $blocks[] = [
-	'title' => 'Na sessão atual',
+	'title' => 'No ano letivo atual',
 	'figure' => $totals['session'],
 ];
 

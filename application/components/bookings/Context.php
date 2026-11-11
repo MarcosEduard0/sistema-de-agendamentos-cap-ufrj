@@ -298,12 +298,12 @@ class Context
 	 */
 	private function init_session()
 	{
-		$allow_any = FALSE;
+		$allow_any = TRUE;
 
 		// Load list of selectable sessions
 		$this->available_sessions = $this->CI->sessions_model->get_selectable();
 
-		if ($this->user && $this->user->authlevel == ADMINISTRATOR) {
+		if ($this->user) {
 			$this->past_sessions = $this->CI->sessions_model->get_all_past();
 			$this->active_sessions = $this->CI->sessions_model->get_all_active();
 			$allow_any = TRUE;
