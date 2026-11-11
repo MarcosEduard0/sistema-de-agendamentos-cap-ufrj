@@ -116,3 +116,21 @@ body.admin-page { background: #f4f7fa; }
   .admin-page .content_area .cssform label { float: none; margin-left: 0; width: auto; display: block; }
   .admin-page .content_area .cssform div.submit { padding-left: 0; }
 }
+
+
+/* Administrative feedback: full-width, readable and separated from actions. */
+.admin-page .content_area p.msgbox {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  margin: 16px auto 22px;
+  padding: 12px 16px 12px 42px;
+  background-position: 14px center;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: left;
+  overflow-wrap: anywhere;
+  clear: both;
+}
