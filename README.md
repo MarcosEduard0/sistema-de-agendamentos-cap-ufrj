@@ -1,5 +1,7 @@
 # classroombookings - open source room booking system for schools.
 
+[Manual do Sistema de Agendamentos CAp UFRJ](docs/README.md)
+
 By Craig A Rodway.
 
 [![License: AGPLv3](https://img.shields.io/static/v1?label=License&message=AGPLv3&color=3DA639&style=flat-square)](https://www.gnu.org/licenses/agpl-3.0.html)
