@@ -57,17 +57,18 @@ echo "<fieldset style='border:0'>";
 // Date
 //
 $field = 'date';
-$label = form_label('Data', 'date');
+$label = '<span class="booking-field-label">Data</span>';
 
 // $input = sprintf('%s (%s)', $datetime->format(setting('date_format_long')), html_escape($week->name));
 $input = sprintf('%s (%s)', $formatter->format($datetime), html_escape($week->name));
+$input = '<span class="booking-date-value">' . $input . '<i class="fa fa-calendar" aria-hidden="true"></i></span>';
 echo "<p>{$label}{$input}</p>";
 
 
 // Period
 //
 $field = 'period_id';
-$label = form_label('Periodo', $field);
+$label = form_label('Período', $field);
 
 $time_fmt = setting('time_format_period');
 
@@ -204,7 +205,7 @@ if ($is_admin) {
 		'checked' => ($value == '1'),
 		'up-switch' => '.recurring-content',
 	]);
-	$input_label = form_label($input . 'Sim', 'recurring', ['class' => 'ni']);
+	$input_label = form_label($input . '<span>Sim</span>', 'recurring', ['class' => 'ni']);
 	$error = form_error($field);
 
 	echo "<p>{$label}{$hidden}{$input_label}</p>{$error}";
@@ -223,12 +224,13 @@ if ($is_admin) {
 	// Starting from
 	//
 	$field = 'recurring_start';
-	$label = form_label('Comçendo em...', 'recurring_start');
+	$label = form_label('Começando em...', 'recurring_start');
 	$value = set_value($field, $date_info->date, FALSE);
 
 	$options = ['session' => '(Início da sessão)', 'Data específica...' => $recurring_date_options];
 	$input = form_dropdown([
 		'name' => 'recurring_start',
+		'id' => 'recurring_start',
 		'options' => $options,
 		'selected' => $value,
 		'class' => 'form-control',
@@ -243,6 +245,7 @@ if ($is_admin) {
 	$options = ['session' => '(Fim da sessão)', 'Data específica...' => $recurring_date_options];
 	$input = form_dropdown([
 		'name' => 'recurring_end',
+		'id' => 'recurring_end',
 		'options' => $options,
 		'selected' => $value,
 		'class' => 'form-control',

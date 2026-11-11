@@ -22,6 +22,7 @@ class Dashboard extends MY_Controller
 			redirect('setup');
 		}
 
+		$this->data['styles'][] = 'assets/css/dashboard.css';
 		$this->load->model('bookings_model');
 		$this->load->model('users_model');
 

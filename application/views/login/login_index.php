@@ -1,10 +1,10 @@
 <div class="limiter">
 	<div class="container-login100">
-		<div class="wrap-login100">
+		<div class="wrap-login100 login-card">
 			<?php
-			if (strlen($message)) {
-				echo '<div style="position: absolute; padding-top: 3%;">';
-				echo "<div class='login_message'>" . nl2br($message) . "</div>";
+			if (isset($message) && strlen($message)) {
+				echo '<div class="login-message-container">';
+				echo "<div class='login_message' role='note'>" . nl2br($message) . "</div>";
 				echo '</div>';
 			}
 			?>
@@ -14,10 +14,10 @@
 			<?php
 			echo form_open('login/submit', array('id' => 'login', 'class' => 'login100-form validate-form'), array('page' => $this->uri->uri_string()));
 			?>
-			<div class="container" style="padding: 70px 0 50px 0; text-align: center;">
+			<div class="login-form-content">
 				<div class="row">
 					<div class="col-sm-12">
-						<p class="title-login"><?= $title ?></p>
+						<h1 class="title-login">Sistema de Agendamentos<strong>CAp UFRJ</strong></h1>
 						<?= validation_errors() ?>
 					</div>
 				</div>
@@ -53,7 +53,9 @@
 						'name' => 'password',
 						'id' => 'password',
 						'size' => '20',
-						'placeholder' => "Senha",
+						'placeholder' => 'Senha',
+						'aria-label' => 'Senha',
+						'autocomplete' => 'current-password',
 						'class' => "input100",
 						'tabindex' => tab_index(),
 						'maxlength' => '20',
@@ -69,33 +71,26 @@
 					<button type="submit" class="login100-form-btn">
 						Entrar
 					</button>
-					<?php
-					$this->load->view('partials/submit');
-					?>
 
-					<div class="text-center p-t-12">
-						<span class="txt1">
-							Não possui
-						</span>
-						<a tabindex="0" class="txt2" role="button" data-toggle="popover" data-trigger="focus" title="Cadastro ou redefinir senha" data-content="
-						Para realizar um cadastro ou redefir sua senha, procure um bolsista do LiG.
-						email: capufrj.lig@gmail.com">Usuário?</a>
-					</div>
-					<?php
-					echo form_close();
-					?>
+
+                    <div class="login-help">
+                        <a tabindex="0" class="txt2" role="button" data-toggle="popover" data-trigger="focus" title="Cadastro ou redefinição de senha" data-content="Para realizar um cadastro ou redefinir sua senha, procure um bolsista do LiG. E-mail: capufrj.lig@gmail.com">Não possui Usuário?</a>
+                    </div>
 				</div>
 
 			</div>
-			<div class="container" style="padding: 100px 20px 20px; text-align: center;">
+			<?= form_close() ?>
+			<footer class="login-footer">
 				<div class="row align-items-center">
 					<div class="col-sm-2"></div>
 					<div class="col-sm-8">
-						Adptado de <a href="https://www.classroombookings.com/" target="_blank">classroombookings</a> por
-						<t up-tooltip="marcos.eduardo22@gmail.com">Marcos Eduardo de Souza</t>.
-						<br />Versão <?= VERSION ?>.&copy; <?= date('Y') ?>
+						Adaptado de <a href="https://www.classroombookings.com/" target="_blank" rel="noopener noreferrer">classroombookings</a> por
+						<span class="login-contact" data-toggle="tooltip" data-placement="top" title="marcos.eduardo22@gmail.com">Marcos Eduardo de Souza</span>.
+						<br />Versão <?= VERSION ?> &copy; <?= date('Y') ?>
 					</div>
 					<div class="col-sm-2"></div>
 				</div>
-			</div>
+			</footer>
 		</div>
+	</div>
+</div>

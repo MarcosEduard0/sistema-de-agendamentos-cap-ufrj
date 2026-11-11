@@ -86,15 +86,26 @@ class Header
 
 			case 'room':
 
-				$prev_label = '&larr; Semana anterior';
-				$next_label = 'Próxima semana &rarr;';
+				$prev_label = '&lsaquo; Anterior';
+				$next_label = 'Próxima &rsaquo;';
 
-				$start_date = dateFormatter(setting('date_format_long'), $this->context->week_start);
-				$week_text = sprintf('Semana começando em %s', $start_date);
-
-				$data['title'] = $this->context->timetable_week
-					? $week_text . '<br>' . html_escape($this->context->timetable_week->name)
-					: $week_text;
+                $dates = array_keys($this->context->dates);
+                sort($dates);
+                $start = $dates ? new \DateTime(reset($dates)) : clone $this->context->week_start;
+                $end = $dates ? new \DateTime(end($dates)) : clone $start;
+                $range_formatter = new IntlDateFormatter('pt_BR', IntlDateFormatter::NONE, IntlDateFormatter::NONE, 'America/Sao_Paulo');
+                $range_formatter->setPattern("d 'de' MMMM 'de' yyyy");
+                if ($start->format('Y-m-d') === $end->format('Y-m-d')) {
+                    $week_text = $range_formatter->format($start);
+                } elseif ($start->format('Y-m') === $end->format('Y-m')) {
+                    $week_text = $start->format('j') . ' a ' . $range_formatter->format($end);
+                } else {
+                    $week_text = $range_formatter->format($start) . ' a ' . $range_formatter->format($end);
+                }
+                $data['title'] = '<span class="booking-nav-date">' . html_escape($week_text) . '</span>';
+                if ($this->context->timetable_week) {
+                    $data['title'] .= '<span class="booking-nav-week">' . html_escape($this->context->timetable_week->name) . '</span>';
+                }
 
 				break;
 

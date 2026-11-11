@@ -1,12 +1,11 @@
 <?php
 
 $classes = ['bookings-grid-header'];
-
 if ($week) {
-	$classes[] = 'has-week';
-	$classes[] = sprintf('week%d-bg', $week->week_id);
-	$classes[] = sprintf('week%d-fg', $week->week_id);
-	echo '<style type="text/css">' . week_calendar_css($week) . '</style>';
+    $classes[] = 'has-week';
+    $classes[] = sprintf('week%d-bg', $week->week_id);
+    $classes[] = sprintf('week%d-fg', $week->week_id);
+    echo '<style type="text/css">' . week_calendar_css($week) . '</style>';
 }
 
 ?>
@@ -19,6 +18,8 @@ if ($week) {
 				<?php
 				if ($prev) {
 					echo anchor($prev['url'], $prev['label'], [
+						'title' => 'Anterior',
+                        'aria-label' => 'Anterior',
 						'up-follow' => '',
 						'up-instant' => '',
 						'up-preload' => '',
@@ -35,6 +36,8 @@ if ($week) {
 				<?php
 				if ($next) {
 					echo anchor($next['url'], $next['label'], [
+						'title' => 'Próxima',
+                        'aria-label' => 'Próxima',
 						'up-follow' => '',
 						'up-instant' => '',
 						'up-preload' => '',

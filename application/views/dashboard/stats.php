@@ -5,17 +5,17 @@ $block_class = 'b-33';
 $blocks = [];
 
 $blocks[] = [
-	'title' => 'Todos os agendamento',
+	'title' => 'Total de agendamentos',
 	'figure' => $totals['all'],
 ];
 
 $blocks[] = [
-	'title' => 'Agendamentos neste ano',
+	'title' => 'Na sessão atual',
 	'figure' => $totals['session'],
 ];
 
 $blocks[] = [
-	'title' => 'Agendamentos ativos',
+	'title' => 'Ativos',
 	'figure' => $totals['active'],
 ];
 
@@ -34,35 +34,22 @@ if ($max_active_bookings > 0) {
 	$num_active = (int) $totals['active'];
 
 	$blocks[] = [
-		'title' => 'Máximo de agendamento ativos permitidos',
+		'title' => 'Limite de agendamentos ativos',
 		'figure' => $max_active_bookings,
 	];
 
 	$blocks[] = [
-		'title' => 'Quantidade de agendamentos que você pode fazer',
+		'title' => 'Agendamentos disponíveis',
 		'figure' => ($max_active_bookings - $num_active),
 	];
 }
 
 
-// echo "<div class='block-group has-spacing'>";
-
-echo "<div style='margin-bottom:48px; margin-top: 34px'>";
-
+echo '<dl class="teacher-stats">';
 foreach ($blocks as $block) {
-
-	$figure = number_format($block['figure']);
-	$figure_html = "<dt>{$figure}</dt>";
-
-	$title = html_escape($block['title']);
-	$title_html = "<dd>{$title}</dd>";
-
-	$block_content = "<div class='stat-item'><dl>{$title_html}{$figure_html}</dl></div>";
-
-	echo $block_content;
-
-	// echo "<div class='block {$block_class}'>{$block_content}</div>";
-
+    echo '<div class="teacher-stat">';
+    echo '<dt>' . html_escape($block['title']) . '</dt>';
+    echo '<dd>' . number_format($block['figure'], 0, ',', '.') . '</dd>';
+    echo '</div>';
 }
-
-echo "</div>";
+echo '</dl>';

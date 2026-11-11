@@ -1,54 +1,24 @@
-<?php
-
-echo $this->session->flashdata('saved');
-
-echo '<h2>Início</h2>';
-
-$i = 0;
-$menu[$i]['text'] = 'Agendamentos';
-$menu[$i]['href'] = site_url('bookings');
-$menu[$i]['img'] = 'bookings.png';
-
-
-$i++;
-$menu[$i]['text'] = 'Perfil';
-$menu[$i]['href'] = site_url('profile/edit');
-$menu[$i]['img'] = 'profile.png';
-
-echo '<table width="100%" cellpadding="0" cellspacing="0" border="0">';
-echo '<tbody>';
-$row = 0;
-
-foreach ($menu as $link) {
-	if ($row == 0) {
-		echo '<tr>';
-	}
-	echo '<td width="33%">';
-	echo '<a href="' . $link['href'] . '">';
-	echo '<section align="center">';
-	echo img('assets/images/ui/' . $link['img'], FALSE, 'style="max-width: 70px;"');
-	echo	'<h3 class="home" style="margin-top: 5px;">' . $link['text'] . '</h3>';
-	echo '</section>';
-	echo '</a>';
-	echo '</td>';
-	echo "\n";
-	if ($row == 2) {
-		echo '</tr>' . "\n\n";
-		$row = -1;
-	}
-	$row++;
-}
-
-echo '</tbody>';
-echo '</table>' . "\n\n";
-
-$this->load->view('dashboard/stats');
-
-?>
-
-<div class="block-group has-spacing">
-
-	<?php $this->load->view('dashboard/user_bookings') ?>
-	<?php $this->load->view('dashboard/room_bookings') ?>
-
+<?php echo $this->session->flashdata('saved'); ?>
+<div class="teacher-home">
+    <h1 class="teacher-home-title">Início</h1>
+    <nav class="teacher-shortcuts" aria-label="Acessos principais">
+        <a class="teacher-shortcut" href="<?= site_url('bookings') ?>">
+            <img src="<?= base_url('assets/images/ui/bookings.png') ?>" alt="" width="64" height="64">
+            <h2>Agendamentos</h2>
+            <p>Consulte horários e reserve uma sala.</p>
+        </a>
+        <a class="teacher-shortcut" href="<?= site_url('profile/edit') ?>">
+            <img src="<?= base_url('assets/images/ui/profile.png') ?>" alt="" width="64" height="64">
+            <h2>Meu perfil</h2>
+            <p>Atualize seus dados e sua senha.</p>
+        </a>
+    </nav>
+    <section class="teacher-summary" aria-labelledby="teacher-summary-title">
+        <h2 id="teacher-summary-title">Seus agendamentos</h2>
+        <?php $this->load->view('dashboard/stats'); ?>
+    </section>
+    <div class="block-group has-spacing teacher-bookings">
+        <?php $this->load->view('dashboard/user_bookings'); ?>
+        <?php $this->load->view('dashboard/room_bookings'); ?>
+    </div>
 </div>

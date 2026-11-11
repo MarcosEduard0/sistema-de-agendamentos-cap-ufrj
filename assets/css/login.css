@@ -145,17 +145,16 @@ iframe {
     justify-content: center;
     align-items: center;
     padding: 15px;
-    background: #9053c7;
-    background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
-    background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
-    background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
-    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    background: #102438;
+    background: linear-gradient(45deg, #102438, #385064);
   }
   
   .wrap-login100 {
+    position: relative;
     width: 960px;
     background: #fff;
     border-radius: 10px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
     overflow: hidden;
   
     display: -webkit-box;
@@ -318,7 +317,7 @@ iframe {
     width: 100%;
     height: 50px;
     border-radius: 25px;
-    background: #57b846;
+    background: #176039;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -335,7 +334,12 @@ iframe {
   }
   
   .login100-form-btn:hover {
-    background: #333333;
+    background: #104b2c;
+  }
+
+  .login100-form-btn:focus-visible {
+    outline: 3px solid #176039;
+    outline-offset: 4px;
   }
   
   /*------------------------------------------------------------------
@@ -443,8 +447,17 @@ iframe {
     }
   }
 
+  .login-message-container {
+    position: absolute;
+    top: 58px;
+    left: 95px;
+    right: 95px;
+  }
+
   div.login_message{
-    width: 71%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
   	padding: 10px 10px 10px 28px;
     background-position: 4px 4px;
     background-repeat: no-repeat;
@@ -459,3 +472,117 @@ iframe {
     border-color: #eef5c6;
     background-position-y: center;
     }
+
+/* Institutional login card: notice stays in flow for long messages. */
+.wrap-login100.login-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 28px 60px;
+  max-width: 960px;
+  width: 100%;
+  padding: 40px 48px 28px;
+  border: 1px solid #d8dfe5;
+}
+.login-card .login-message-container {
+  position: static;
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+.login-card .login_message {
+  background-color: #fff7df;
+  border: 1px solid #d7c18a;
+  border-radius: 9px;
+  color: #514522;
+  padding: 14px 18px 14px 42px;
+  background-position: 14px center;
+  font-family: Poppins-Regular, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: left;
+}
+.login-card .login100-pic {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+}
+.login-card .login100-form {
+  width: 100%;
+  max-width: 310px;
+  padding: 0;
+  margin: 0 auto;
+  min-width: 0;
+}
+.login-form-content { text-align: center; }
+.login-card .title-login {
+  font-family: Poppins-Regular, sans-serif;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #263238;
+  margin: 0 0 28px;
+}
+.login-card .title-login strong {
+  display: block;
+  font-family: Poppins-Bold, sans-serif;
+  font-size: 23px;
+  margin-top: 3px;
+}
+.login-card .input100 {
+  color: #29343b;
+  background: #f5f6f8;
+  border: 1px solid #cbd1d6;
+  border-radius: 9px;
+  padding: 0 16px 0 46px;
+  font-family: Poppins-Regular, sans-serif;
+}
+.login-card .input100::placeholder { color: #626c74; opacity: 1; }
+.login-card .input100:focus {
+  border-color: #176039;
+  box-shadow: 0 0 0 3px rgba(23, 96, 57, 0.15);
+}
+.login-card .focus-input100 { display: none; }
+.login-card .symbol-input100 { color: #626c74; padding-left: 17px; }
+.login-card .input100:focus + .focus-input100 + .symbol-input100 {
+  color: #176039;
+  padding-left: 17px;
+}
+.login-card .container-login100-form-btn { padding-top: 4px; }
+.login-card .login100-form-btn {
+  background: #164b2c;
+  box-shadow: 0 2px 5px rgba(16, 48, 29, 0.2);
+}
+.login-card .login100-form-btn:hover { background: #103b22; }
+.login-help { width: 100%; margin-top: 12px; }
+.login-help .txt2 {
+  color: #58636b;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.login-help .txt2:hover { color: #164b2c; }
+.login-footer {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #4d5962;
+  font-size: 11px;
+  line-height: 1.7;
+  padding-top: 28px;
+}
+@media (max-width: 700px) {
+  .wrap-login100.login-card {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 24px;
+    gap: 24px;
+  }
+  .login-card .login100-pic { max-width: 190px; }
+  .login-card .title-login { font-size: 17px; }
+  .login-footer { padding-top: 8px; }
+}
+
+/* Keep the contact address on one line inside the footer tooltip. */
+.login-footer .tooltip-inner {
+  max-width: none;
+  white-space: nowrap;
+}

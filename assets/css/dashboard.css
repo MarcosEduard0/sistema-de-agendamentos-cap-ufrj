@@ -1,0 +1,46 @@
+/* Styles loaded only on the teacher home. */
+body { background: #f4f7fa; }
+.teacher-home { padding: 16px 0 24px; color: #24323d; }
+.teacher-home-title {
+  border-left: 4px solid #176039;
+  padding-left: 12px;
+  margin: 0 0 24px;
+  font-size: 26px;
+  line-height: 1.35;
+  font-weight: 600;
+  color: #24323d;
+}
+.teacher-shortcuts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.teacher-shortcut {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 26px 20px;
+  border: 1px solid #dce3e8;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 3px 7px rgba(16, 36, 56, .08);
+  text-align: center;
+  color: #24323d;
+  text-decoration: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+.teacher-shortcut img { width: 64px; height: 64px; object-fit: contain; }
+.teacher-shortcut h2 { margin: 12px 0 6px; font-size: 21px; font-weight: 600; color: #24323d; }
+.teacher-shortcut p { margin: 0; color: #596975; font-size: 14px; line-height: 1.5; }
+.teacher-shortcut:hover { border-color: #88aa96; box-shadow: 0 6px 14px rgba(16, 36, 56, .12); text-decoration: none; }
+.teacher-shortcut:focus-visible { outline: 3px solid #176039; outline-offset: 4px; }
+.teacher-summary { margin-top: 30px; }
+.teacher-summary > h2 { margin: 0 0 16px; color: #24323d; font-size: 20px; font-weight: 600; }
+.teacher-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin: 0; }
+.teacher-stat { padding: 18px; background: #fff; border: 1px solid #dce3e8; border-radius: 9px; }
+.teacher-stat dt { color: #596975; font-size: 13px; font-weight: 400; line-height: 1.5; }
+.teacher-stat dd { margin: 10px 0 0; padding: 0; color: #164b2c; font-size: 28px; line-height: 1.2; font-weight: 700; }
+.teacher-bookings { margin-top: 26px; }
+@media (max-width: 575px) {
+  .teacher-shortcuts { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .teacher-shortcut { padding: 22px 16px; }
+  .teacher-stats { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .teacher-shortcut { transition: none; } }

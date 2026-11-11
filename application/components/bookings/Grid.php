@@ -70,11 +70,7 @@ class Grid
 		$form_open = form_open($this->context->base_uri . '/create/multi', $form_attrs, $form_hidden);
 		$form_close = form_close();
 
-		if ($this->CI->userauth->is_level(ADMINISTRATOR)) {
-		} else {
-			$out = "{$controls}\n{$header}\n{$body}\n{$footer}\n{$legend}\n";
-		}
-		$out = "{$controls}\n{$header}\n{$form_open}\n{$body}\n{$footer}\n{$form_close}\n{$legend}\n";
+        $out = "{$controls}\n{$header}\n{$legend}\n{$form_open}\n<div class='booking-table-scroll' tabindex='0' role='region' aria-label='Grade de agendamentos'>{$body}</div>\n{$footer}\n{$form_close}\n";
 
 		return "<div id='bookings_grid' up-hungry>{$out}</div>";
 	}
@@ -118,15 +114,11 @@ class Grid
 			'checked' => false,
 			'up-switch' => '.multi-select-content',
 		]);
-		$input_label = form_label($input . 'Habilitar multipla seleção', 'multi_select', ['class' => 'ni', 'style' => 'display: inline-block;margin-bottom:8px']);
-
-		$check_block = "<div class='block b-50' style='text-align:right'>{$input_label}</div>";
-
-		$submit_button = "<div class='multi-select-content' >
-		<button type='submit' style='margin-left:32px' class='btn btn-primary btn-sm'>Criar agendamentos...</button></div>";
-		$button_block = "<div class='block b-50'>{$submit_button}</div>";
-
-		return "<div class='cssform block-group' style='margin-top:32px;'>{$check_block}{$button_block}</div>";
+        $input_label = form_label($input . ' Seleção múltipla', 'multi_select', ['class' => 'booking-multi-label']);
+        return "<div class='booking-grid-actions'>
+            <div>{$input_label}<p class='booking-selection-hint'>Selecione vários horários para agendar de uma vez.</p></div>
+            <div class='multi-select-content'><button type='submit' class='btn btn-primary btn-sm'>Criar agendamentos...</button></div>
+        </div>";
 	}
 
 
@@ -136,27 +128,15 @@ class Grid
 	 */
 	public function render_legend()
 	{
-		$cells = [];
-
-		$legend = lang('bookings_legend_legend');
-		$cells[] = "<td width='25%' align='right' valign='middle'><strong>{$legend}:</strong></td>";
-
-		$label = lang('bookings_legend_free');
-		$class = 'bookings-grid-slot booking-status-available';
-		$cells[] = "<td class='{$class}' width='25%' align='center'><span class='bookings-grid-button'>{$label}</div></td>";
-
-		$label = lang('bookings_legend_static');
-		$class = 'bookings-grid-slot booking-status-booked booking-status-booked-recurring';
-		$cells[] = "<td class='{$class}' width='25%' align='center'><span class='bookings-grid-button'>{$label}</div></td>";
-
-		$label = lang('bookings_legend_staff');
-		$class = 'bookings-grid-slot booking-status-booked booking-status-booked-single';
-		$cells[] = "<td class='{$class}' width='25%' align='center'><span class='bookings-grid-button'>{$label}</div></td>";
-
-		$cells_str = implode("\n", $cells);
-
-		$table = "<table border='0' cellpadding='4' cellspacing='4' class='bookings-grid is-legend' align='center' style='border:1px solid #000;border-width:0px 0px;margin:16px auto;'><tr>{$cells_str}</tr></table>";
-
-		return $table;
+        $items = [
+            ['class' => 'available', 'label' => lang('bookings_legend_free')],
+            ['class' => 'recurring', 'label' => lang('bookings_legend_static')],
+            ['class' => 'single', 'label' => lang('bookings_legend_staff')],
+        ];
+        $out = '<div class="booking-legend" aria-label="Legenda dos agendamentos"><strong>' . html_escape(lang('bookings_legend_legend')) . ':</strong><ul>';
+        foreach ($items as $item) {
+            $out .= '<li><span class="booking-legend-dot booking-legend-dot--' . $item['class'] . '" aria-hidden="true"></span>' . html_escape($item['label']) . '</li>';
+        }
+        return $out . '</ul></div>';
 	}
 }

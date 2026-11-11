@@ -14,6 +14,7 @@ class Setup extends MY_Controller
 
 	public function index()
 	{
+		$this->data['styles'][] = 'assets/css/setup.css';
 		$data = [
 			'school_menu' => $this->menu_model->setup_school(),
 			'manage_menu' => $this->menu_model->setup_manage(),
