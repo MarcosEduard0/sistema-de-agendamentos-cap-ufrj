@@ -15,6 +15,38 @@ class Holidays_model extends CI_Model
 	}
 
 
+    public function import_reviewed($session_id, $rows)
+    {
+        // Serialize imports into the same target year and commit calendar updates together.
+        $debug = $this->db->db_debug;
+        $this->db->db_debug = false;
+        $this->db->trans_begin();
+        try {
+            $lock = $this->db->query('SELECT session_id FROM sessions WHERE session_id = ? FOR UPDATE', [$session_id]);
+            if (!$lock || !$lock->num_rows()) { throw new RuntimeException('Target year unavailable.'); }
+            $result = ['inserted' => 0, 'skipped' => 0];
+            foreach ($rows as $row) {
+                $duplicate = $this->db->get_where($this->table, $row, 1);
+                if (!$duplicate) { throw new RuntimeException('Duplicate check failed.'); }
+                if ($duplicate->num_rows()) { $result['skipped']++; continue; }
+                if (!$this->db->insert($this->table, $row)) { throw new RuntimeException('Insert failed.'); }
+                $result['inserted']++;
+            }
+            if ($result['inserted'] && $this->dates_model->refresh_holidays($session_id) === false) {
+                throw new RuntimeException('Calendar refresh failed.');
+            }
+            if (!$this->db->trans_status()) { throw new RuntimeException('Calendar update failed.'); }
+            if (!$this->db->trans_commit()) { throw new RuntimeException('Commit failed.'); }
+            return $result;
+        } catch (Throwable $e) {
+            $this->db->trans_rollback();
+            throw $e;
+        } finally {
+            $this->db->db_debug = $debug;
+        }
+    }
+
+
 	public function get_by_session($session_id)
 	{
 		$where = [ 'session_id' => $session_id ];

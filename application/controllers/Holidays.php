@@ -21,6 +21,51 @@ class Holidays extends MY_Controller
 	}
 
 
+    public function import_year($session_id)
+    {
+        $target = $this->find_session($session_id);
+        $this->load->library('holiday_import');
+        $sources = array_merge($this->sessions_model->get_all_active() ?: [], $this->sessions_model->get_all_past() ?: []);
+        $sources = array_filter($sources, function ($year) use ($target) { return $year->session_id != $target->session_id; });
+        $source_id = $this->input->get_post('source_id');
+        $source = null;
+        foreach ($sources as $year) {
+            if ((string) $year->session_id === (string) $source_id) { $source = $year; break; }
+        }
+        $holidays = $source ? ($this->holidays_model->get_by_session($source->session_id) ?: []) : [];
+        $error = '';
+        if (!$this->session->userdata('holiday_import_token')) {
+            $this->session->set_userdata('holiday_import_token', bin2hex(random_bytes(32)));
+        }
+        if ($this->input->method(TRUE) === 'POST') {
+            try {
+                $token = $this->input->post('import_token');
+                if (!is_string($token) || !hash_equals($this->session->userdata('holiday_import_token'), $token)) {
+                    throw new InvalidArgumentException('Solicitação expirada. Recarregue a página.');
+                }
+                if (!$source || !$this->input->post('reviewed')) {
+                    throw new InvalidArgumentException('Escolha o ano de origem e confirme a revisão das datas.');
+                }
+                $rows = $this->holiday_import->validate($holidays, $this->input->post('selected'), $this->input->post('starts'), $this->input->post('ends'), $target);
+                $result = $this->holidays_model->import_reviewed($target->session_id, $rows);
+                $this->session->set_flashdata('saved', msgbox('info', sprintf('%d feriado(s) importado(s); %d duplicado(s) ignorado(s).', $result['inserted'], $result['skipped'])));
+                redirect('holidays/session/' . $target->session_id);
+                return;
+            } catch (InvalidArgumentException $e) {
+                $error = $e->getMessage();
+            } catch (Throwable $e) {
+                log_message('error', 'Holiday import failed: ' . $e->getMessage());
+                $error = 'Não foi possível concluir a importação. Nenhuma alteração foi confirmada.';
+            }
+        }
+        $this->data['title'] = $this->data['showtitle'] = 'Importar feriados para ' . $target->name;
+        $data = ['target' => $target, 'sources' => $sources, 'source' => $source, 'holidays' => $holidays,
+            'error' => $error, 'import_token' => $this->session->userdata('holiday_import_token')];
+        $this->data['body'] = iconbar($this->get_icons($target)) . $this->load->view('holidays/import_year', $data, TRUE);
+        return $this->render();
+    }
+
+
 	private function get_icons($session = NULL)
 	{
 		$items = [

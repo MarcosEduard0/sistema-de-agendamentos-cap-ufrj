@@ -494,16 +494,30 @@ GROUP BY date
 	}
 
 
-	public function apply_week($session_id, $week_id)
-	{
-		$session = $this->sessions_model->get($session_id);
-		if ( ! $session) {
-			return FALSE;
-		}
-
-		$sql = "UPDATE {$this->table} SET week_id = ? WHERE session_id = ?";
-		return $this->db->query($sql, [$week_id, $session_id]);
-	}
+    public function apply_week($session_id, $week_id, $date_start = null, $date_end = null)
+    {
+        $session = $this->sessions_model->get($session_id);
+        if (!$session) { return false; }
+        $sql = "UPDATE {$this->table} SET week_id = ? WHERE session_id = ?";
+        $params = [$week_id, $session_id];
+        if ($date_start !== null || $date_end !== null) {
+            if (!is_string($date_start) || !is_string($date_end)) {
+                throw new InvalidArgumentException('Informe as duas datas do intervalo.');
+            }
+            $start = DateTime::createFromFormat('!Y-m-d', $date_start);
+            $end = DateTime::createFromFormat('!Y-m-d', $date_end);
+            if (!$start || !$end || $start->format('Y-m-d') !== $date_start || $end->format('Y-m-d') !== $date_end || $end < $start) {
+                throw new InvalidArgumentException('Informe um intervalo de datas válido, com o início anterior ou igual ao fim.');
+            }
+            if ($start < $session->date_start || $end > $session->date_end) {
+                throw new InvalidArgumentException('O intervalo deve estar dentro das datas do ano letivo.');
+            }
+            $sql .= ' AND `date` >= ? AND `date` <= ?';
+            $params[] = $date_start;
+            $params[] = $date_end;
+        }
+        return $this->db->query($sql, $params);
+    }
 
 
 }

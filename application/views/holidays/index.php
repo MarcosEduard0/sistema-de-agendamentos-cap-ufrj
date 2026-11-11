@@ -6,6 +6,7 @@ echo "<div class='messages'>{$messages}</div>";
 
 echo iconbar([
 	['holidays/add?session_id=' . $session->session_id, 'Adicionar Feriado', 'add.png'],
+	['holidays/import_year/' . $session->session_id, 'Importar de outro ano letivo', 'calendar_view_month.png'],
 ]);
 
 $sort_cols = ["Name", "StartDate", "EndDate", "None"];

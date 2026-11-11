@@ -141,9 +141,35 @@ class Sessions extends MY_Controller
 			redirect("sessions/view/{$session_id}");
 		}
 
-		$this->dates_model->apply_week($session_id, $week_id);
-
-		$flashmsg = msgbox('info', sprintf("%s foi aplicado a todas as semanas no ano letivo.", html_escape($week->name)));
+        try {
+            $token = $this->input->post('apply_week_token');
+            $expected = $this->session->userdata('apply_week_token');
+            if (!is_string($token) || !is_string($expected) || !hash_equals($expected, $token)) {
+                throw new InvalidArgumentException('Solicitação expirada. Recarregue a página e tente novamente.');
+            }
+            $scope = $this->input->post('apply_scope');
+            if (!in_array($scope, ['all', 'range'], true)) {
+                throw new InvalidArgumentException('Escolha aplicar ao ano inteiro ou a um intervalo.');
+            }
+            $start = $scope === 'range' ? $this->input->post('apply_start') : null;
+            $end = $scope === 'range' ? $this->input->post('apply_end') : null;
+            // Empty fields must never silently expand a range into the entire year.
+            if ($scope === 'range' && (!is_string($start) || !is_string($end) || !$start || !$end)) {
+                throw new InvalidArgumentException('Informe as datas de início e fim do intervalo.');
+            }
+            if (!$this->dates_model->apply_week($session_id, $week_id, $start, $end)) {
+                throw new RuntimeException('Não foi possível aplicar a semana.');
+            }
+            $message = $scope === 'range'
+                ? sprintf('%s aplicado de %s a %s, incluindo as duas datas.', $week->name, date('d/m/Y', strtotime($start)), date('d/m/Y', strtotime($end)))
+                : sprintf('%s aplicado a todo o ano letivo.', $week->name);
+            $flashmsg = msgbox('info', $message);
+        } catch (InvalidArgumentException $e) {
+            $flashmsg = msgbox('error', $e->getMessage());
+        } catch (Throwable $e) {
+            log_message('error', 'Apply week failed: ' . $e->getMessage());
+            $flashmsg = msgbox('error', 'Não foi possível aplicar a semana. Tente novamente.');
+        }
 		$this->session->set_flashdata('saved', $flashmsg);
 
 		redirect("sessions/view/{$session_id}");

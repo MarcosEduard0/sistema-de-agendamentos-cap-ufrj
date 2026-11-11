@@ -1,7 +1,7 @@
 <?php
 $global_menu = $this->menu_model->global();
 // Shared appearance for the administrative pages and their edit forms.
-$admin_sections = ['school', 'periods', 'weeks', 'sessions', 'rooms', 'departments', 'users'];
+$admin_sections = ['school', 'periods', 'weeks', 'sessions', 'rooms', 'departments', 'users', 'holidays'];
 $admin_page = in_array($this->uri->segment(1), $admin_sections, TRUE)
     || ($this->uri->segment(1) === 'settings' && $this->uri->segment(2) === 'general');
 if ($admin_page) {
